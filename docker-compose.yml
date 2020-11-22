@@ -5,6 +5,7 @@ services:
     build: .
     volumes:
       - ./config:/tuya-mqtt/config
-    restart: always
+    # restart: always
     environment:
       - DEBUG=tuya-mqtt:*
+    network_mode: "host"

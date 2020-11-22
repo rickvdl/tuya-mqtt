@@ -15,17 +15,17 @@ var CONFIG = undefined
 var tuyaDevices = new Array()
 
 // Setup Exit Handlers
-process.on('exit', processExit.bind(0))
-process.on('SIGINT', processExit.bind(0))
-process.on('SIGTERM', processExit.bind(0))
-process.on('uncaughtException', processExit.bind(1))
+process.on('exit', processExit.bind(0, "exit"))
+process.on('SIGINT', processExit.bind(0, "SIGINT"))
+process.on('SIGTERM', processExit.bind(0, "SIGTERM"))
+process.on('uncaughtException', processExit.bind(1, "uncaughtException"))
 
 // Disconnect from and publish offline status for all devices on exit
-async function processExit(exitCode) {
+async function processExit(exitCode, reason) {
     for (let tuyaDevice of tuyaDevices) {
         tuyaDevice.device.disconnect()
     }
-    if (exitCode || exitCode === 0) debug('Exit code: '+exitCode)
+    if (exitCode || exitCode === 0) debug('Exit code: ' + exitCode + ' Reason ' + reason)
     await utils.sleep(1)
     process.exit()
 }
