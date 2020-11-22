@@ -77,7 +77,7 @@ const main = async() => {
     let mqttClient
 
     try {
-        CONFIG = require('./config')
+        CONFIG = require('./config/config')
     } catch (e) {
         console.error('Configuration file not found!')
         debugError(e)
@@ -92,7 +92,7 @@ const main = async() => {
     }
 
     try {
-        configDevices = fs.readFileSync('./devices.conf', 'utf8')
+        configDevices = fs.readFileSync('./config/devices.conf', 'utf8')
         configDevices = json5.parse(configDevices)
     } catch (e) {
         console.error('Devices file not found!')
